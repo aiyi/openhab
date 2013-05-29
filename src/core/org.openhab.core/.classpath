@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="var" path="OPENHAB_ROOT/lib/ext/mbassador-1.1.6.jar"/>
+	<classpathentry kind="var" path="OPENHAB_ROOT/lib/ext/org.apache.commons.collections-3.2.0.jar"/>
+	<classpathentry kind="var" path="OPENHAB_ROOT/lib/ext/org.slf4j.api_1.6.4.v20120130-2120.jar"/>
+	<classpathentry kind="var" path="OPENHAB_ROOT/lib/ext/org.slf4j.jcl_1.6.4.v20120130-2120.jar"/>
+	<classpathentry kind="var" path="OPENHAB_ROOT/lib/ext/org.slf4j.jul_1.6.4.v20120130-2120.jar"/>
+	<classpathentry kind="var" path="OPENHAB_ROOT/lib/ext/org.slf4j.log4j_1.6.4.v20120130-2120.jar"/>
+	<classpathentry kind="var" path="OPENHAB_ROOT/lib/ext/picocontainer-2.14.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
