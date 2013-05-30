@@ -9,5 +9,8 @@
 	<classpathentry kind="var" path="OPENHAB_ROOT/lib/ext/org.slf4j.jul_1.6.4.v20120130-2120.jar"/>
 	<classpathentry kind="var" path="OPENHAB_ROOT/lib/ext/org.slf4j.log4j_1.6.4.v20120130-2120.jar"/>
 	<classpathentry kind="var" path="OPENHAB_ROOT/lib/ext/picocontainer-2.14.jar"/>
+	<classpathentry kind="var" path="OPENHAB_ROOT/lib/ext/ch.qos.logback.classic_1.0.0.v20111214-2030.jar"/>
+	<classpathentry kind="var" path="OPENHAB_ROOT/lib/ext/ch.qos.logback.core_1.0.0.v20111214-2030.jar"/>
+	<classpathentry kind="var" path="OPENHAB_ROOT/lib/ext/ch.qos.logback.slf4j_1.0.0.v20120123-1500.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
