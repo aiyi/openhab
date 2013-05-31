@@ -31,10 +31,12 @@ package org.openhab.core.internal;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Properties;
 import java.util.ServiceConfigurationError;
 import java.util.ServiceLoader;
 import java.util.logging.Handler;
 
+import org.openhab.core.config.ConfigurationManager;
 import org.openhab.core.service.Module;
 import org.picocontainer.DefaultPicoContainer;
 import org.picocontainer.MutablePicoContainer;
@@ -56,10 +58,13 @@ public class CoreActivator {
 	
 	private static Map<String, Module> moduleMap = new HashMap<String, Module>();
 	
+	private static ConfigurationManager configManager = new ConfigurationManager();
+	
 	public static void main(String[] args) {
 		try {
 			loadModules();
 			start();
+			configManager.setConfigHandler(new CoreActivator().new ConfigHandler());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -73,15 +78,17 @@ public class CoreActivator {
 			
 			while (modIterator.hasNext()) {
 				Module module = modIterator.next();
-				String name = module.getClass().getSimpleName();
+				String name = module.getClass().getPackage().getName();
+				name = name.substring(name.lastIndexOf('.') + 1);
+				module.setName(name);
 				
-				if (name.equals("CoreModule"))
+				if (name.equals("core"))
 					module.setContainer(coreContainer);
 				else
 					module.setContainer(coreContainer.makeChildContainer());
 				
 				moduleMap.put(name, module);
-				System.out.println(name);
+				logger.info("Loading module '{}'.", name);
 			}
 		} catch (ServiceConfigurationError serviceError) {
 			serviceError.printStackTrace();
@@ -90,8 +97,10 @@ public class CoreActivator {
 
 	public static void start() throws Exception {
 		for (Module module : moduleMap.values()) {
-			module.configure(null);
+			Properties configuration = ConfigurationManager.getModuleConfig(module.getName());
+			module.configure(configuration);
 			module.start();
+			logger.info("Module '{}' has been started.", module.getName());
 		}
 		
 		logger.info("openHAB runtime has been started.");
@@ -107,4 +116,13 @@ public class CoreActivator {
 	public static void stop() throws Exception {
 		logger.info("openHAB runtime has been terminated.");
 	}
+	
+	public class ConfigHandler {
+	
+		public void update(String moduleName, Properties configuration) {
+			Module module = moduleMap.get(moduleName);
+			module.updated(configuration);
+		}
+	}
+	
 }

@@ -12,8 +12,17 @@ import org.picocontainer.MutablePicoContainer;
  */
 abstract public class Module {
 
+	private String name;
 	private MutablePicoContainer container;
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+	
 	public void setContainer(MutablePicoContainer container) {
 		this.container = container;
 	}
@@ -21,7 +30,7 @@ abstract public class Module {
 	public MutablePicoContainer getContainer() {
 		return container;
 	}
-	
+
 	public void configure(Properties config) {
 		if (config != null) {
 			updated(config);
