@@ -3,6 +3,13 @@ package org.openhab.core.config;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.WatchEvent;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
+import java.nio.file.StandardWatchEventKinds;
+import java.util.List;
 import java.util.Properties;
 
 import org.openhab.core.internal.CoreActivator.ConfigHandler;
@@ -17,21 +24,48 @@ import org.slf4j.LoggerFactory;
  * @author Jesse
  * @since 2.0.0
  */
-public class ConfigurationManager {
+public class ConfigManager {
 
-	private static final Logger logger = LoggerFactory.getLogger(ConfigurationManager.class);
-	
+	private static final Logger logger = LoggerFactory.getLogger(ConfigManager.class);
+
 	private static String mainConfigFolder = null;
-	
+
 	private ConfigHandler handler = null;
-	
-	public ConfigurationManager() {
+
+	public ConfigManager(ConfigHandler handler) {
+		this.handler = handler;
 		mainConfigFolder = getConfigFolder() + "/";
 		logger.info("Main configuration directory '{}'.", mainConfigFolder);
 	}
-	
-	public void setConfigHandler(ConfigHandler handler) {
-		this.handler = handler;
+
+	public void activate() {
+		Path cfgDir = Paths.get(mainConfigFolder);
+		
+		try {
+			WatchService watcher = cfgDir.getFileSystem().newWatchService();
+			cfgDir.register(watcher, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_MODIFY);
+
+			for (;;) {
+				WatchKey watckKey = watcher.take();
+
+				List<WatchEvent<?>> events = watckKey.pollEvents();
+				for (WatchEvent<?> event : events) {
+					if (event.kind() == StandardWatchEventKinds.ENTRY_CREATE || 
+							event.kind() == StandardWatchEventKinds.ENTRY_MODIFY) {
+						String filename = event.context().toString();
+						configChanged(filename.substring(0, filename.indexOf('.')));
+					}
+				}
+
+				boolean valid = watckKey.reset();
+				if (!valid) {
+					logger.info("Watch service no longer registered.");
+					break;
+				}
+			}
+		} catch (Exception e) {
+			logger.error("Watch service failed to start.", e);
+		}
 	}
 
 	public void configChanged(String module) {
@@ -41,15 +75,16 @@ public class ConfigurationManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		handler.update(module, configuration);
+
+		if (configuration != null && handler != null)
+			handler.update(module, configuration);
 	}
-	
+
 	public static Properties getModuleConfig(String module) throws IOException {
 		Properties configuration = new Properties();
 		String configFilePath = mainConfigFolder + module + ConfigConstants.MAIN_CONFIG_FILE_EXTENSION;
 		FileInputStream in = null;
-		
+
 		try {
 			in = new FileInputStream(configFilePath);
 			configuration.load(in);
@@ -64,12 +99,13 @@ public class ConfigurationManager {
 			if (in != null)
 				in.close();
 		}
-		
+
 		return configuration;
 	}
-	
+
 	/**
-	 * Returns the main configuration folder path name from the System property <code>configdir</code>.
+	 * Returns the main configuration folder path name from the System property
+	 * <code>configdir</code>.
 	 * 
 	 * @return the configuration folder path name
 	 */
@@ -81,5 +117,5 @@ public class ConfigurationManager {
 			return ConfigConstants.MAIN_CONFIG_FOLDER;
 		}
 	}
-	
+
 }

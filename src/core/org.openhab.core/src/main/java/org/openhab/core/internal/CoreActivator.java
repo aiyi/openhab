@@ -36,7 +36,7 @@ import java.util.ServiceConfigurationError;
 import java.util.ServiceLoader;
 import java.util.logging.Handler;
 
-import org.openhab.core.config.ConfigurationManager;
+import org.openhab.core.config.ConfigManager;
 import org.openhab.core.service.Module;
 import org.picocontainer.DefaultPicoContainer;
 import org.picocontainer.MutablePicoContainer;
@@ -53,18 +53,19 @@ import org.slf4j.bridge.SLF4JBridgeHandler;
 public class CoreActivator {
 
 	private static Logger logger = LoggerFactory.getLogger(CoreActivator.class);
-	
+
 	private static MutablePicoContainer coreContainer = new DefaultPicoContainer(new Caching());
-	
+
 	private static Map<String, Module> moduleMap = new HashMap<String, Module>();
-	
-	private static ConfigurationManager configManager = new ConfigurationManager();
-	
+
+	private static ConfigManager configManager = new ConfigManager(
+			new CoreActivator().new ConfigHandler());
+
 	public static void main(String[] args) {
 		try {
 			loadModules();
 			start();
-			configManager.setConfigHandler(new CoreActivator().new ConfigHandler());
+			configManager.activate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -72,21 +73,21 @@ public class CoreActivator {
 
 	public static void loadModules() {
 		ServiceLoader<Module> moduleLoader = ServiceLoader.load(Module.class);
-		
+
 		try {
 			Iterator<Module> modIterator = moduleLoader.iterator();
-			
+
 			while (modIterator.hasNext()) {
 				Module module = modIterator.next();
 				String name = module.getClass().getPackage().getName();
 				name = name.substring(name.lastIndexOf('.') + 1);
 				module.setName(name);
-				
+
 				if (name.equals("core"))
 					module.setContainer(coreContainer);
 				else
 					module.setContainer(coreContainer.makeChildContainer());
-				
+
 				moduleMap.put(name, module);
 				logger.info("Loading module '{}'.", name);
 			}
@@ -97,12 +98,12 @@ public class CoreActivator {
 
 	public static void start() throws Exception {
 		for (Module module : moduleMap.values()) {
-			Properties configuration = ConfigurationManager.getModuleConfig(module.getName());
+			Properties configuration = ConfigManager.getModuleConfig(module.getName());
 			module.configure(configuration);
 			module.start();
 			logger.info("Module '{}' has been started.", module.getName());
 		}
-		
+
 		logger.info("openHAB runtime has been started.");
 
 		java.util.logging.Logger rootLogger = java.util.logging.LogManager.getLogManager().getLogger("");
@@ -116,13 +117,18 @@ public class CoreActivator {
 	public static void stop() throws Exception {
 		logger.info("openHAB runtime has been terminated.");
 	}
-	
+
 	public class ConfigHandler {
-	
+
 		public void update(String moduleName, Properties configuration) {
 			Module module = moduleMap.get(moduleName);
-			module.updated(configuration);
+			if (module != null) {
+				module.updated(configuration);
+			}
+			else {
+				logger.info("Wrong configuration file name, module '{}' does not exist.", moduleName);
+			}
 		}
 	}
-	
+
 }
