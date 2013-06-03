@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.picocontainer.MutablePicoContainer;
+import org.picocontainer.Parameter;
 
 /**
  * 
@@ -41,18 +42,23 @@ abstract public class Module {
 	
 	public abstract void start();
 
-	public abstract void stop();
+	public void stop() {
+	}
 
-	protected void addComponent(Object component) {
-		container.addComponent(component);
+	protected void addComponent(Object key, Object component, Parameter... params) {
+		container.addComponent(key, component, params);
+	}
+
+	protected <T> T getComponent(Class<T> type) {
+		return container.getComponent(type);
+	}
+	
+	protected Object getComponent(Object key) {
+		return container.getComponent(key);
 	}
 	
 	protected void removeComponent(Object component) {
 		container.removeComponent(component);
-	}
-
-	protected <T> T getComponent(Class<T> component) {
-		return container.getComponent(component);
 	}
 
 	public List<Object> getComponents() {

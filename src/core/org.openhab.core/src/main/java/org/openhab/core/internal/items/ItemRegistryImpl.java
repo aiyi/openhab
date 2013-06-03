@@ -70,8 +70,14 @@ public class ItemRegistryImpl implements ItemRegistry, ItemsChangeListener {
 	/** to keep track of all item change listeners */
 	protected Collection<ItemRegistryChangeListener> listeners = new HashSet<ItemRegistryChangeListener>();
 
-	public ItemRegistryImpl(EventBus eventBus) {
+	public ItemRegistryImpl(EventBus eventBus, Collection<ItemProvider> itemProviders) {
 		this.eventBus = eventBus;
+		
+		for (ItemProvider itemProvider : itemProviders) {
+			itemProvider.addItemChangeListener(this);
+            itemMap.put(itemProvider, null);
+			logger.debug("Item provider '{}' has been added.", itemProvider.getClass().getSimpleName());
+		}
 	}
 	
 	public void activate() {

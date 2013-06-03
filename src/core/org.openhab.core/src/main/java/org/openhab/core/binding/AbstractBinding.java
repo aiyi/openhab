@@ -71,7 +71,7 @@ public abstract class AbstractBinding<P extends BindingProvider> implements Even
 	public void addBindingProvider(P provider) {
 		this.providers.add(provider);
         provider.addBindingChangeListener(this);
-        allBindingsChanged(provider);
+        //allBindingsChanged(provider);
     }
 
 	/**

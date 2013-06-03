@@ -54,7 +54,7 @@ public class CoreActivator {
 
 	private static Logger logger = LoggerFactory.getLogger(CoreActivator.class);
 
-	private static MutablePicoContainer coreContainer = new DefaultPicoContainer(new Caching());
+	private static MutablePicoContainer container = new DefaultPicoContainer(new Caching());
 
 	private static Map<String, Module> moduleMap = new HashMap<String, Module>();
 
@@ -81,13 +81,9 @@ public class CoreActivator {
 				Module module = modIterator.next();
 				String name = module.getClass().getPackage().getName();
 				name = name.substring(name.lastIndexOf('.') + 1);
+				
 				module.setName(name);
-
-				if (name.equals("core"))
-					module.setContainer(coreContainer);
-				else
-					module.setContainer(coreContainer.makeChildContainer());
-
+				module.setContainer(container);
 				moduleMap.put(name, module);
 				logger.info("Loading module '{}'.", name);
 			}
@@ -101,7 +97,6 @@ public class CoreActivator {
 			Properties configuration = ConfigManager.getModuleConfig(module.getName());
 			module.configure(configuration);
 			module.start();
-			logger.info("Module '{}' has been started.", module.getName());
 		}
 
 		logger.info("openHAB runtime has been started.");
