@@ -26,27 +26,56 @@
  * (EPL), the licensors of this Program grant you additional permission
  * to convey the resulting work.
  */
-package org.openhab.core.config;
+package org.openhab.core.library.types;
 
-/**
- * This class provides constants relevant for the configuration of openHAB
- * 
- * @author Kai Kreuzer
- * @since 0.3.0
- *
- */
-public class ConfigConstants {
+import org.openhab.core.types.Command;
+import org.openhab.core.types.State;
+import org.openhab.core.types.PrimitiveType;
 
-	/** The program argument name for setting the root config directory path */
-	final static public String CONFIG_DIR_PROG_ARGUMENT = "configdir";
+public class StringType implements PrimitiveType, State, Command {
 
-	/** The default root configuration directory name */
-	final static public String ROOT_CONFIG_FOLDER = "conf"; 
+	public final static StringType EMPTY = new StringType("");
 	
-	/** The default main configuration directory name */
-	final static public String MAIN_CONFIG_FOLDER = "main"; 
+	private final String value;
+
+	public StringType(String value) {
+		this.value = value;
+	}
 	
-	/** The filename extension for the main config file */
-	final static public String MAIN_CONFIG_FILE_EXTENSION = ".cfg";
+	public String toString() {
+		return value;
+	}
 	
+	public static StringType valueOf(String value) {
+		return new StringType(value);
+	}
+
+	public String format(String pattern) {
+		return String.format(pattern, value);
+	}
+
+	@Override
+	public int hashCode() {
+		return value.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if(obj instanceof String) {
+			return obj.equals(value);
+		}
+		if (getClass() != obj.getClass())
+			return false;
+		StringType other = (StringType) obj;
+		if (!value.equals(other.value)) {
+			return false;
+		}
+		return true;
+	}
+	
+
 }

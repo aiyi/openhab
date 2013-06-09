@@ -26,27 +26,48 @@
  * (EPL), the licensors of this Program grant you additional permission
  * to convey the resulting work.
  */
-package org.openhab.core.config;
+package org.openhab.core.library.items;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.openhab.core.items.GenericItem;
+import org.openhab.core.library.types.DecimalType;
+import org.openhab.core.types.Command;
+import org.openhab.core.types.State;
+import org.openhab.core.types.UnDefType;
 
 /**
- * This class provides constants relevant for the configuration of openHAB
+ * A NumberItem has a decimal value and is usually used for all kinds
+ * of sensors, like temperature, brightness, wind, etc.
+ * It can also be used as a counter or as any other thing that can be expressed
+ * as a number.
  * 
  * @author Kai Kreuzer
- * @since 0.3.0
+ * @since 0.1.0
  *
  */
-public class ConfigConstants {
+public class NumberItem extends GenericItem {
+	
+	private static List<Class<? extends State>> acceptedDataTypes = new ArrayList<Class<? extends State>>();
+	private static List<Class<? extends Command>> acceptedCommandTypes = new ArrayList<Class<? extends Command>>();
 
-	/** The program argument name for setting the root config directory path */
-	final static public String CONFIG_DIR_PROG_ARGUMENT = "configdir";
+	static {
+		acceptedDataTypes.add(DecimalType.class);
+		acceptedDataTypes.add(UnDefType.class);
 
-	/** The default root configuration directory name */
-	final static public String ROOT_CONFIG_FOLDER = "conf"; 
+		acceptedCommandTypes.add(DecimalType.class);
+	}
 	
-	/** The default main configuration directory name */
-	final static public String MAIN_CONFIG_FOLDER = "main"; 
-	
-	/** The filename extension for the main config file */
-	final static public String MAIN_CONFIG_FILE_EXTENSION = ".cfg";
-	
+	public NumberItem(String name) {
+		super(name);
+	}
+
+	public List<Class<? extends State>> getAcceptedDataTypes() {
+		return acceptedDataTypes;
+	}
+
+	public List<Class<? extends Command>> getAcceptedCommandTypes() {
+		return acceptedCommandTypes;
+	}
 }

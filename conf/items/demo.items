@@ -1,0 +1,27 @@
+<ItemModel>
+    <group type="Switch" name="All">
+        <label>Table</label>
+        <icon>temperature</icon>
+        <function type="OR">
+            <arg>ON</arg>
+            <arg>OFF</arg>
+        </function>
+    </group>
+	<group name="gGF">
+		<icon>temperature</icon>
+		<group>All</group>
+		<group>Status</group>
+	</group>
+	<group name="Status">
+		<icon>temperature</icon>
+		<group>All</group>
+		<group>gGF</group>
+	</group>
+	<item type="DateTime" name="Date">
+		<label>Date [%1$tA, %1$td.%1$tm.%1$tY]</label>
+		<icon>calendar</icon>
+		<binding type="ntp">
+			<config>Europe/Berlin:de_DE</config>
+		</binding>
+	</item>
+</ItemModel>

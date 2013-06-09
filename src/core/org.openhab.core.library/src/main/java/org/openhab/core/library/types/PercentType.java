@@ -26,27 +26,51 @@
  * (EPL), the licensors of this Program grant you additional permission
  * to convey the resulting work.
  */
-package org.openhab.core.config;
+package org.openhab.core.library.types;
 
-/**
- * This class provides constants relevant for the configuration of openHAB
+import java.math.BigDecimal;
+
+/** 
+ * The PercentType extends the {@link DecimalType} by putting constraints for its value on top (0-100).
  * 
  * @author Kai Kreuzer
- * @since 0.3.0
+ * @since 0.1.0
  *
  */
-public class ConfigConstants {
+public class PercentType extends DecimalType {
+	
+	private static final long serialVersionUID = -9066279845951780879L;
+	
+	final static public PercentType ZERO = new PercentType(0); 
+	final static public PercentType HUNDRED = new PercentType(100); 
+	
+	public PercentType() {
+		super();
+	}
+	
+	public PercentType(int value) {
+		super(value);
+		validateValue(this.value);
+	}
 
-	/** The program argument name for setting the root config directory path */
-	final static public String CONFIG_DIR_PROG_ARGUMENT = "configdir";
+	public PercentType(String value) {
+		super(value);
+		validateValue(this.value);
+	}
 
-	/** The default root configuration directory name */
-	final static public String ROOT_CONFIG_FOLDER = "conf"; 
+	public PercentType(BigDecimal value) {
+		super(value);
+		validateValue(this.value);
+	}
 	
-	/** The default main configuration directory name */
-	final static public String MAIN_CONFIG_FOLDER = "main"; 
+	private void validateValue(BigDecimal value) {
+		if(BigDecimal.ZERO.compareTo(value) > 0 || new BigDecimal(100).compareTo(value) < 0) {
+			throw new IllegalArgumentException("Value must be between 0 and 100");
+		}
+	}
 	
-	/** The filename extension for the main config file */
-	final static public String MAIN_CONFIG_FILE_EXTENSION = ".cfg";
-	
+	public static PercentType valueOf(String value) {
+		return new PercentType(value);
+	}
+
 }

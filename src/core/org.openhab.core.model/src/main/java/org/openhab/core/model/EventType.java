@@ -26,27 +26,9 @@
  * (EPL), the licensors of this Program grant you additional permission
  * to convey the resulting work.
  */
-package org.openhab.core.config;
+package org.openhab.core.model;
 
-/**
- * This class provides constants relevant for the configuration of openHAB
- * 
- * @author Kai Kreuzer
- * @since 0.3.0
- *
- */
-public class ConfigConstants {
-
-	/** The program argument name for setting the root config directory path */
-	final static public String CONFIG_DIR_PROG_ARGUMENT = "configdir";
-
-	/** The default root configuration directory name */
-	final static public String ROOT_CONFIG_FOLDER = "conf"; 
-	
-	/** The default main configuration directory name */
-	final static public String MAIN_CONFIG_FOLDER = "main"; 
-	
-	/** The filename extension for the main config file */
-	final static public String MAIN_CONFIG_FILE_EXTENSION = ".cfg";
-	
+/** These are the event types that can occur as model repository changes */
+public enum EventType {
+	ADDED, REMOVED, MODIFIED
 }

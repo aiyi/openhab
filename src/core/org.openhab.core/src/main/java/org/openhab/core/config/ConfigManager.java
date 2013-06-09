@@ -28,13 +28,21 @@ public class ConfigManager {
 
 	private static final Logger logger = LoggerFactory.getLogger(ConfigManager.class);
 
+	private static String configFolder = null;
+	
 	private static String mainConfigFolder = null;
 
 	private ConfigHandler handler = null;
 
 	public ConfigManager(ConfigHandler handler) {
 		this.handler = handler;
-		mainConfigFolder = getConfigFolder() + "/";
+		
+		configFolder = System.getProperty(ConfigConstants.CONFIG_DIR_PROG_ARGUMENT);
+		if (configFolder == null) {
+			configFolder =  ConfigConstants.ROOT_CONFIG_FOLDER;
+		}
+		
+		mainConfigFolder = configFolder + "/" + ConfigConstants.MAIN_CONFIG_FOLDER + "/";
 		logger.info("Main configuration directory '{}'.", mainConfigFolder);
 	}
 
@@ -53,7 +61,8 @@ public class ConfigManager {
 					if (event.kind() == StandardWatchEventKinds.ENTRY_CREATE || 
 							event.kind() == StandardWatchEventKinds.ENTRY_MODIFY) {
 						String filename = event.context().toString();
-						configChanged(filename.substring(0, filename.indexOf('.')));
+						if (filename.endsWith(ConfigConstants.MAIN_CONFIG_FILE_EXTENSION))
+							configChanged(filename.substring(0, filename.indexOf('.')));
 					}
 				}
 
@@ -110,12 +119,7 @@ public class ConfigManager {
 	 * @return the configuration folder path name
 	 */
 	public static String getConfigFolder() {
-		String progArg = System.getProperty(ConfigConstants.CONFIG_DIR_PROG_ARGUMENT);
-		if (progArg != null) {
-			return progArg;
-		} else {
-			return ConfigConstants.MAIN_CONFIG_FOLDER;
-		}
+		return configFolder;
 	}
 
 }

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:core="CoreModel">
+
+	<xsd:import namespace="CoreModel" schemaLocation="model.xsd"/>
+
+	<xsd:element name="ItemModel">
+    <xsd:complexType>
+        <xsd:complexContent>
+			<xsd:extension base="core:Model">
+		        <xsd:sequence>
+		            <xsd:element name="group" type="ModelGroupItem" minOccurs="0" maxOccurs="unbounded"/>
+		            <xsd:element name="item" type="ModelNormalItem" minOccurs="1" maxOccurs="unbounded"/>
+		        </xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+    </xsd:complexType>
+    </xsd:element>
+
+	<xsd:complexType name="ModelBinding">
+		<xsd:sequence>
+        	<xsd:element name="config" type="xsd:string"/>
+		</xsd:sequence>
+		<xsd:attribute name="type" type="xsd:string" use="required"/>
+	</xsd:complexType>
+
+	<xsd:complexType name="ModelItem">
+		<xsd:sequence>
+        	<xsd:element name="label" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+	        <xsd:element name="icon" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="group" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="binding" type="ModelBinding" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+		<xsd:attribute name="name" type="xsd:string" use="required"/>
+	</xsd:complexType>
+
+    <xsd:complexType name="ModelNormalItem">
+		<xsd:complexContent>
+			<xsd:extension base="ModelItem">
+				<xsd:attribute name="type" type="ModelItemType" use="required"/>
+			</xsd:extension>
+		</xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="ModelGroupItem">
+		<xsd:complexContent>
+			<xsd:extension base="ModelItem">
+				<xsd:sequence>
+					<xsd:element name="function" minOccurs="0" maxOccurs="1">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="arg" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+						</xsd:sequence>
+						<xsd:attribute name="type" type="ModelGroupFunction" use="required"/>
+					</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+				<xsd:attribute name="type" type="ModelItemType" use="optional"/>
+			</xsd:extension>
+		</xsd:complexContent>
+    </xsd:complexType>
+
+	<xsd:simpleType name="ModelItemType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="Switch"/>
+			<xsd:enumeration value="Rollershutter"/>
+			<xsd:enumeration value="Number"/>
+			<xsd:enumeration value="String"/>
+			<xsd:enumeration value="Dimmer"/>
+			<xsd:enumeration value="Contact"/>
+			<xsd:enumeration value="DateTime"/>
+			<xsd:enumeration value="Color"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="ModelGroupFunction">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="AND"/>
+			<xsd:enumeration value="OR"/>
+			<xsd:enumeration value="NAND"/>
+			<xsd:enumeration value="NOR"/>
+			<xsd:enumeration value="AVG"/>
+			<xsd:enumeration value="SUM"/>
+			<xsd:enumeration value="MAX"/>
+			<xsd:enumeration value="MIN"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+
+</xsd:schema>

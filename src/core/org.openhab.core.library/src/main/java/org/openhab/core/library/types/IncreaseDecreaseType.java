@@ -26,27 +26,16 @@
  * (EPL), the licensors of this Program grant you additional permission
  * to convey the resulting work.
  */
-package org.openhab.core.config;
+package org.openhab.core.library.types;
 
-/**
- * This class provides constants relevant for the configuration of openHAB
- * 
- * @author Kai Kreuzer
- * @since 0.3.0
- *
- */
-public class ConfigConstants {
+import org.openhab.core.types.Command;
+import org.openhab.core.types.PrimitiveType;
 
-	/** The program argument name for setting the root config directory path */
-	final static public String CONFIG_DIR_PROG_ARGUMENT = "configdir";
+public enum IncreaseDecreaseType implements PrimitiveType, Command {
+	INCREASE, DECREASE;
+		
+	public String format(String pattern) {
+		return String.format(pattern, this.toString());
+	}
 
-	/** The default root configuration directory name */
-	final static public String ROOT_CONFIG_FOLDER = "conf"; 
-	
-	/** The default main configuration directory name */
-	final static public String MAIN_CONFIG_FOLDER = "main"; 
-	
-	/** The filename extension for the main config file */
-	final static public String MAIN_CONFIG_FILE_EXTENSION = ".cfg";
-	
 }
