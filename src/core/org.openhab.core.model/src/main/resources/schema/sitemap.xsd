@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:core="CoreModel">
+
+	<xsd:import namespace="CoreModel" schemaLocation="model.xsd"/>
+	
+	<xsd:element name="sitemap">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="core:Model">
+					<xsd:sequence>
+						<xsd:element name="frame" type="Frame" minOccurs="1" maxOccurs="unbounded"/>
+					</xsd:sequence>
+					<xsd:attribute name="name" type="xsd:string" use="required"/>
+					<xsd:attribute name="label" type="xsd:string" use="required"/>
+					<xsd:attribute name="icon" type="xsd:string" use="optional"/>
+				</xsd:extension>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+
+	<xsd:complexType name="Widget">
+		<xsd:attribute name="item" type="xsd:string" use="optional"/>
+		<xsd:attribute name="label" type="xsd:string" use="optional"/>
+		<xsd:attribute name="icon" type="xsd:string" use="optional"/>
+	</xsd:complexType>
+
+	<xsd:complexType name="LinkableWidget">
+		<xsd:complexContent>
+			<xsd:extension base="Widget">
+				<xsd:choice minOccurs="0" maxOccurs="unbounded">
+					<xsd:element name="text" type="Text"/>
+					<xsd:element name="group" type="Group"/>
+					<xsd:element name="image" type="Image"/>
+					<xsd:element name="frame" type="Frame"/>
+					<xsd:element name="switch" type="Switch"/>
+					<xsd:element name="chart" type="Chart"/>
+				</xsd:choice>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="NonLinkableWidget">
+		<xsd:complexContent>
+			<xsd:extension base="Widget">
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="Frame">
+		<xsd:complexContent>
+			<xsd:extension base="LinkableWidget">
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="Text">
+		<xsd:complexContent>
+			<xsd:extension base="LinkableWidget">
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="Group">
+		<xsd:complexContent>
+			<xsd:extension base="LinkableWidget">
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="Image">
+		<xsd:complexContent>
+			<xsd:extension base="LinkableWidget">
+				<xsd:sequence>
+					<xsd:element name="url" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+					<xsd:element name="refresh" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="Switch">
+		<xsd:complexContent>
+			<xsd:extension base="NonLinkableWidget">
+				<xsd:sequence>
+					<xsd:element name="mapping" type="Mapping" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+
+	<xsd:complexType name="Chart">
+		<xsd:complexContent>
+			<xsd:extension base="NonLinkableWidget">
+				<xsd:sequence>
+					<xsd:element name="service" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+					<xsd:element name="refresh" type="xsd:int" minOccurs="0" maxOccurs="1"/>
+					<xsd:element name="period" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	
+	<xsd:complexType name="Mapping">
+		<xsd:sequence>
+        	<xsd:element name="label" type="xsd:string"/>
+		</xsd:sequence>
+		<xsd:attribute name="command" type="xsd:string" use="required"/>
+	</xsd:complexType>
+	
+</xsd:schema>

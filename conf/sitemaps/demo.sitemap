@@ -1,0 +1,25 @@
+<sitemap name="demo" label="Main Menu" icon="icon">
+	<frame>
+		<group item="gFF" label="First Floor" icon="firstfloor"/>
+		<group item="gGF" label="Ground Floor" icon="groundfloor"/>
+		<group item="gC" label="Cellar" icon="cellar"/>
+		<group item="Outdoor" icon="garden"/>
+	</frame>
+	<frame label="Weather">
+		<text item="Weather_Temperature">
+			<frame>
+				<text item="Weather_Temp_Max"/>
+				<text item="Weather_Temp_Min"/>
+			</frame>
+			<frame>
+				<chart item="Weather_Chart">
+					<refresh>10000</refresh>
+					<period>h</period>
+				</chart>
+			</frame>
+		</text>
+	</frame>
+	<frame label="Date">
+		<text item="Date"/>
+	</frame>
+</sitemap>

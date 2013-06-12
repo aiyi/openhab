@@ -55,6 +55,7 @@ import org.openhab.core.model.Model;
 import org.openhab.core.model.ModelRepository;
 import org.openhab.core.model.ModelRepositoryChangeListener;
 import org.openhab.core.model.items.ItemModel;
+import org.openhab.core.model.sitemap.Sitemap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
@@ -81,6 +82,7 @@ public class ModelRepositoryImpl implements ModelRepository {
 		else if (name.endsWith("sitemap")) {
 			modelType = "sitemap";
 			modelDir = "sitemaps";
+			modelClass = Sitemap.class;
 		}
 		
 		if (modelType == null)
@@ -99,9 +101,10 @@ public class ModelRepositoryImpl implements ModelRepository {
 			Unmarshaller unmarshaller = context.createUnmarshaller();
 			Model model = (Model)unmarshaller.unmarshal(source);
             modelMap.put(name, model);
-			logger.debug("Configuration model '{}' created", name);
+			logger.debug("Configuration model '{}' created.", name);
 			return model;
 		} catch (Exception e) {
+			//logger.error("Failed to create model '{}'.", name, e);
 			logger.error(e.getMessage());
 		}
 		
