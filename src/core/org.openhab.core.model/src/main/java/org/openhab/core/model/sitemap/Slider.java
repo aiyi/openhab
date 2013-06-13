@@ -15,16 +15,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Image complex type.
+ * <p>Java class for Slider complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="Image">
+ * &lt;complexType name="Slider">
  *   &lt;complexContent>
- *     &lt;extension base="{}LinkableWidget">
- *       &lt;attribute name="url" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="refresh" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *     &lt;extension base="{}NonLinkableWidget">
+ *       &lt;attribute name="frequency" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *       &lt;attribute name="switchEnabled" type="{http://www.w3.org/2001/XMLSchema}boolean" />
  *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -33,62 +33,62 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Image")
-public class Image
-    extends LinkableWidget
+@XmlType(name = "Slider")
+public class Slider
+    extends NonLinkableWidget
 {
 
-    @XmlAttribute(name = "url")
-    protected String url;
-    @XmlAttribute(name = "refresh")
-    protected Integer refresh;
+    @XmlAttribute(name = "frequency")
+    protected Integer frequency;
+    @XmlAttribute(name = "switchEnabled")
+    protected Boolean switchEnabled;
 
     /**
-     * Gets the value of the url property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getUrl() {
-        return url;
-    }
-
-    /**
-     * Sets the value of the url property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setUrl(String value) {
-        this.url = value;
-    }
-
-    /**
-     * Gets the value of the refresh property.
+     * Gets the value of the frequency property.
      * 
      * @return
      *     possible object is
      *     {@link Integer }
      *     
      */
-    public Integer getRefresh() {
-        return refresh;
+    public Integer getFrequency() {
+        return frequency;
     }
 
     /**
-     * Sets the value of the refresh property.
+     * Sets the value of the frequency property.
      * 
      * @param value
      *     allowed object is
      *     {@link Integer }
      *     
      */
-    public void setRefresh(Integer value) {
-        this.refresh = value;
+    public void setFrequency(Integer value) {
+        this.frequency = value;
+    }
+
+    /**
+     * Gets the value of the switchEnabled property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Boolean }
+     *     
+     */
+    public Boolean isSwitchEnabled() {
+        return switchEnabled;
+    }
+
+    /**
+     * Sets the value of the switchEnabled property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Boolean }
+     *     
+     */
+    public void setSwitchEnabled(Boolean value) {
+        this.switchEnabled = value;
     }
 
 }

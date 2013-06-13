@@ -10,24 +10,22 @@ package org.openhab.core.model.sitemap;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Mapping complex type.
+ * <p>Java class for Webview complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="Mapping">
+ * &lt;complexType name="Webview">
  *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="command" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="label" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
+ *     &lt;extension base="{}NonLinkableWidget">
+ *       &lt;attribute name="url" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;attribute name="height" type="{http://www.w3.org/2001/XMLSchema}int" />
+ *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
@@ -35,63 +33,62 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Mapping", propOrder = {
-    "command",
-    "label"
-})
-public class Mapping {
+@XmlType(name = "Webview")
+public class Webview
+    extends NonLinkableWidget
+{
 
-    @XmlElement(required = true)
-    protected String command;
-    @XmlElement(required = true)
-    protected String label;
+    @XmlAttribute(name = "url")
+    protected String url;
+    @XmlAttribute(name = "height")
+    protected Integer height;
 
     /**
-     * Gets the value of the command property.
+     * Gets the value of the url property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getCommand() {
-        return command;
+    public String getUrl() {
+        return url;
     }
 
     /**
-     * Sets the value of the command property.
+     * Sets the value of the url property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setCommand(String value) {
-        this.command = value;
+    public void setUrl(String value) {
+        this.url = value;
     }
 
     /**
-     * Gets the value of the label property.
+     * Gets the value of the height property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Integer }
      *     
      */
-    public String getLabel() {
-        return label;
+    public Integer getHeight() {
+        return height;
     }
 
     /**
-     * Sets the value of the label property.
+     * Sets the value of the height property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Integer }
      *     
      */
-    public void setLabel(String value) {
-        this.label = value;
+    public void setHeight(Integer value) {
+        this.height = value;
     }
 
 }

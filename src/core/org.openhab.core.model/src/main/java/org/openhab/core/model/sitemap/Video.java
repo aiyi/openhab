@@ -15,16 +15,15 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Image complex type.
+ * <p>Java class for Video complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="Image">
+ * &lt;complexType name="Video">
  *   &lt;complexContent>
- *     &lt;extension base="{}LinkableWidget">
+ *     &lt;extension base="{}NonLinkableWidget">
  *       &lt;attribute name="url" type="{http://www.w3.org/2001/XMLSchema}string" />
- *       &lt;attribute name="refresh" type="{http://www.w3.org/2001/XMLSchema}int" />
  *     &lt;/extension>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -33,15 +32,13 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Image")
-public class Image
-    extends LinkableWidget
+@XmlType(name = "Video")
+public class Video
+    extends NonLinkableWidget
 {
 
     @XmlAttribute(name = "url")
     protected String url;
-    @XmlAttribute(name = "refresh")
-    protected Integer refresh;
 
     /**
      * Gets the value of the url property.
@@ -65,30 +62,6 @@ public class Image
      */
     public void setUrl(String value) {
         this.url = value;
-    }
-
-    /**
-     * Gets the value of the refresh property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
-     */
-    public Integer getRefresh() {
-        return refresh;
-    }
-
-    /**
-     * Sets the value of the refresh property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
-     */
-    public void setRefresh(Integer value) {
-        this.refresh = value;
     }
 
 }

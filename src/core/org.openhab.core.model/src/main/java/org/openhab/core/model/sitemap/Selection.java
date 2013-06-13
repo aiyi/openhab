@@ -17,12 +17,12 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for Switch complex type.
+ * <p>Java class for Selection complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="Switch">
+ * &lt;complexType name="Selection">
  *   &lt;complexContent>
  *     &lt;extension base="{}NonLinkableWidget">
  *       &lt;sequence>
@@ -36,10 +36,10 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Switch", propOrder = {
+@XmlType(name = "Selection", propOrder = {
     "mappings"
 })
-public class Switch
+public class Selection
     extends NonLinkableWidget
 {
 

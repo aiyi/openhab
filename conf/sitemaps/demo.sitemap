@@ -12,14 +12,106 @@
 				<text item="Weather_Temp_Min"/>
 			</frame>
 			<frame>
-				<chart item="Weather_Chart">
-					<refresh>10000</refresh>
-					<period>h</period>
-				</chart>
+				<chart item="Weather_Chart" refresh="10000" period="h"/>
 			</frame>
 		</text>
 	</frame>
 	<frame label="Date">
 		<text item="Date"/>
+	</frame>
+	<frame label="Demo">
+		<text label="Group Demo" icon="firstfloor">
+			<switch item="Lights">
+				<mapping>
+					<command>OFF</command>
+					<label>All Off</label>
+				</mapping>
+			</switch>
+			<group item="Heating"/>
+			<group item="Windows"/>
+			<text item="Temperature"/>
+		</text>
+		<text label="Widget Overview" icon="chart">
+			<frame label="Binary Widgets">
+				<switch item="DemoSwitch" label="Toggle Switch"/>
+				<switch item="DemoSwitch" label="Button Switch">
+					<mapping>
+						<command>ON</command>
+						<label>On</label>
+					</mapping>
+				</switch>
+			</frame>
+			<frame label="Discrete Widgets">
+				<selection item="Scene_General" label="Scene Selection">
+					<mapping>
+						<command>0</command>
+						<label>off</label>
+					</mapping>
+					<mapping>
+						<command>1</command>
+						<label>TV</label>
+					</mapping>
+					<mapping>
+						<command>2</command>
+						<label>Dinner</label>
+					</mapping>
+					<mapping>
+						<command>3</command>
+						<label>Reading</label>
+					</mapping>
+				</selection>
+				<switch item="Scene_General" label="Scene">
+					<mapping>
+						<command>1</command>
+						<label>TV</label>
+					</mapping>
+					<mapping>
+						<command>2</command>
+						<label>Dinner</label>
+					</mapping>
+					<mapping>
+						<command>3</command>
+						<label>Reading</label>
+					</mapping>
+				</switch>
+				<setpoint item="Temperature_Setpoint" minValue="16" maxValue="28" step="0.5"/>
+			</frame>
+			<frame label="Percent-based Widgets">
+				<slider item="DimmedLight" switchEnabled="true"/>
+				<colorpicker item="RGBLight" icon="slider"/>
+				<switch item="DemoShutter"/>
+				<slider item="DemoBlinds"/>
+			</frame>
+		</text>
+		<text label="Multimedia" icon="video">
+			<frame label="Radio Control">
+				<selection item="Radio_Station">
+					<mapping>
+						<command>0</command>
+						<label>off</label>
+					</mapping>
+					<mapping>
+						<command>1</command>
+						<label>HR3</label>
+					</mapping>
+					<mapping>
+						<command>2</command>
+						<label>SWR3</label>
+					</mapping>
+					<mapping>
+						<command>3</command>
+						<label>FFH</label>
+					</mapping>
+				</selection>
+				<slider item="Volume"/>
+			</frame>
+			<frame label="Multimedia Widgets">
+				<image label="openHAB" url="http://localhost:8080/images/splash-ipad-h.png">
+					<text label="http://www.openHAB.org" icon="icon"/>
+				</image>
+				<video url="http://demo.openhab.org/Hue.m4v"/>
+				<webview url="http://heise-online.mobi/" height="8"/>
+			</frame>
+		</text>
 	</frame>
 </sitemap>
