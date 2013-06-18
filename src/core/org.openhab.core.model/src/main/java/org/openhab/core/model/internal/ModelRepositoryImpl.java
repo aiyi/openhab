@@ -92,7 +92,7 @@ public class ModelRepositoryImpl implements ModelRepository {
 			File source = new File(ConfigManager.getConfigFolder() + "/" + modelDir + "/" + name);
 			String schemaLanguage = XMLConstants.W3C_XML_SCHEMA_NS_URI;
             SchemaFactory schemaFactory = SchemaFactory.newInstance(schemaLanguage);
-            Schema schema = schemaFactory.newSchema(new File("../org.openhab.core.model/src/main/resources/schema/" + modelType + ".xsd"));
+            Schema schema = schemaFactory.newSchema(new File("src/core/org.openhab.core.model/src/main/resources/schema/" + modelType + ".xsd"));
             Validator validator = schema.newValidator();
             InputSource inputSource = new InputSource(new FileInputStream(source));
             validator.validate(new SAXSource(inputSource));

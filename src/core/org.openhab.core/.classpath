@@ -14,5 +14,7 @@
 	<classpathentry exported="true" kind="var" path="OPENHAB_ROOT/lib/ext/ch.qos.logback.slf4j_1.0.0.v20120123-1500.jar"/>
 	<classpathentry exported="true" kind="var" path="OPENHAB_ROOT/lib/ext/quartz-all-2.1.7.jar"/>
 	<classpathentry exported="true" kind="var" path="OPENHAB_ROOT/lib/ext/org.apache.commons.io-2.0.1.jar"/>
+	<classpathentry exported="true" kind="var" path="OPENHAB_ROOT/lib/ext/javax.servlet_3.0.0.v201112011016.jar"/>
+	<classpathentry exported="true" kind="var" path="OPENHAB_ROOT/lib/ext/jetty-all-8.1.3.v20120416.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
