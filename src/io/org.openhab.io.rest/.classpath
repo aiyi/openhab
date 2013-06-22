@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/org.openhab.core"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/org.openhab.core.model"/>
+	<classpathentry exported="true" kind="var" path="OPENHAB_ROOT/lib/ext/asm-3.1.jar"/>
+	<classpathentry exported="true" kind="var" path="OPENHAB_ROOT/lib/ext/atmosphere-annotations-1.0.4.jar"/>
+	<classpathentry exported="true" kind="var" path="OPENHAB_ROOT/lib/ext/atmosphere-compat-jbossweb-1.0.4.jar"/>
+	<classpathentry exported="true" kind="var" path="OPENHAB_ROOT/lib/ext/atmosphere-compat-tomcat-1.0.4.jar"/>
+	<classpathentry exported="true" kind="var" path="OPENHAB_ROOT/lib/ext/atmosphere-compat-tomcat7-1.0.4.jar"/>
+	<classpathentry exported="true" kind="var" path="OPENHAB_ROOT/lib/ext/atmosphere-jersey-1.0.4.jar"/>
+	<classpathentry exported="true" kind="var" path="OPENHAB_ROOT/lib/ext/atmosphere-runtime-1.0.4.jar"/>
+	<classpathentry exported="true" kind="var" path="OPENHAB_ROOT/lib/ext/jackson-core-asl-1.9.2.jar"/>
+	<classpathentry exported="true" kind="var" path="OPENHAB_ROOT/lib/ext/jackson-jaxrs-1.9.2.jar"/>
+	<classpathentry exported="true" kind="var" path="OPENHAB_ROOT/lib/ext/jackson-mapper-asl-1.9.2.jar"/>
+	<classpathentry exported="true" kind="var" path="OPENHAB_ROOT/lib/ext/jackson-xc-1.9.2.jar"/>
+	<classpathentry exported="true" kind="var" path="OPENHAB_ROOT/lib/ext/jersey-bundle-1.11.jar"/>
+	<classpathentry exported="true" kind="var" path="OPENHAB_ROOT/lib/ext/jsr311-api-1.1.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

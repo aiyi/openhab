@@ -63,15 +63,16 @@ public class CoreActivator {
 
 	public static void main(String[] args) {
 		try {
-			loadModules();
-			start();
-			configManager.activate();
+			if (loadModules()) {
+				start();
+				configManager.activate();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static void loadModules() {
+	public static boolean loadModules() {
 		ServiceLoader<Module> moduleLoader = ServiceLoader.load(Module.class);
 
 		try {
@@ -79,27 +80,38 @@ public class CoreActivator {
 
 			while (modIterator.hasNext()) {
 				Module module = modIterator.next();
-				String name = module.getClass().getPackage().getName();
-				name = name.substring(name.lastIndexOf('.') + 1);
+				if (moduleMap.get(module.getSimpleName()) != null) {
+					logger.error("Module name conflit: {}", module.getSimpleName());
+					return false;
+				}
 				
-				module.setName(name);
 				module.setContainer(container);
-				moduleMap.put(name, module);
-				logger.info("Loading module '{}'.", name);
+				moduleMap.put(module.getSimpleName(), module);
+				logger.info("Loaded module {}", module.getName());
 			}
 		} catch (ServiceConfigurationError serviceError) {
 			serviceError.printStackTrace();
+			return false;
 		}
+		
+		return true;
 	}
 
 	public static void start() throws Exception {
 		for (Module module : moduleMap.values()) {
-			Properties configuration = ConfigManager.getModuleConfig(module.getName());
+			Properties configuration = ConfigManager.getModuleConfig(module.getSimpleName());
 			module.configure(configuration);
-			module.start();
 		}
 
-		logger.info("openHAB runtime has been started.");
+		for (Object component : container.getComponents()) {
+			logger.debug("Instantiated the component class {}", component.getClass().getName());
+		}
+		
+		for (Module module : moduleMap.values()) {
+			module.start();
+		}
+		
+		logger.info("openHAB runtime has been started");
 
 		java.util.logging.Logger rootLogger = java.util.logging.LogManager.getLogManager().getLogger("");
 		Handler[] handlers = rootLogger.getHandlers();
@@ -110,7 +122,7 @@ public class CoreActivator {
 	}
 
 	public static void stop() throws Exception {
-		logger.info("openHAB runtime has been terminated.");
+		logger.info("openHAB runtime has been terminated");
 	}
 
 	public class ConfigHandler {
@@ -121,7 +133,7 @@ public class CoreActivator {
 				module.updated(configuration);
 			}
 			else {
-				logger.info("Wrong configuration file name, module '{}' does not exist.", moduleName);
+				logger.info("Wrong configuration file name, module {} does not exist", moduleName);
 			}
 		}
 	}

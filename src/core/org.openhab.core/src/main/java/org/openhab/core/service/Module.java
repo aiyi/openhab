@@ -13,39 +13,54 @@ import org.picocontainer.Parameter;
  */
 abstract public class Module {
 
-	private String name;
+	private String name = null;
+	
 	private MutablePicoContainer container;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+	private Properties initConfig = null;
 
 	public String getName() {
-		return this.name;
+		return this.getClass().getPackage().getName();
+	}
+
+	protected void setSimpleName(String name) {
+		this.name = name;
+	}
+	
+	public String getSimpleName() {
+		if (name == null) {
+			return getName();
+		}
+		return name;
+	}
+	
+	public Properties getInitConfig() {
+		return initConfig;
 	}
 	
 	public void setContainer(MutablePicoContainer container) {
 		this.container = container;
 	}
 
-	public MutablePicoContainer getContainer() {
-		return container;
-	}
-
 	public void configure(Properties config) {
 		if (config != null) {
-			updated(config);
+			initConfig = new Properties();
+			initConfig.putAll(config);
 		}
 	}
-
-	public abstract void updated(Properties config);
 	
 	public abstract void start();
 
 	public void stop() {
+		// do nothing
 	}
 
-	protected void addComponent(Object key, Object component, Parameter... params) {
+	public void updated(Properties config) {
+		// do nothing
+	}
+	
+	protected void addComponent(Object component, Parameter... params) {
+		String key = component.toString().substring(6);
 		container.addComponent(key, component, params);
 	}
 

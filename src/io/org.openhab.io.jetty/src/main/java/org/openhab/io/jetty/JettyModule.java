@@ -13,35 +13,33 @@ public class JettyModule extends Module {
 
 	@Override
 	public void configure(Properties config) {
-		addComponent("jetty", EmbeddedServer.class);
-	}
-
-	@Override
-	public void updated(Properties config) {
-		logger.debug("Configuration updated {}.", config.toString());
+		super.configure(config);
+		addComponent(EmbeddedServer.class);
 	}
 
 	@Override
 	public void start() {
-		logger.info("Module '{}' has been started.", getName());
-		
-		EmbeddedServer server = (EmbeddedServer)getComponent("jetty");
+		EmbeddedServer server = getComponent(EmbeddedServer.class);
 		try {
 			server.startServer();
 		} catch (Exception e) {
 			e.printStackTrace();
+			return;
 		}
+		
+		logger.info("Module {} started", getName());
 	}
 
 	@Override
 	public void stop() {
-		logger.info("Module '{}' has been stopped.", getName());
-		
-		EmbeddedServer server = (EmbeddedServer)getComponent("jetty");
+		EmbeddedServer server = getComponent(EmbeddedServer.class);
 		try {
 			server.stopServer();
 		} catch (Exception e) {
 			e.printStackTrace();
+			return;
 		}
+		
+		logger.info("Module {} stopped", getName());
 	}
 }

@@ -43,7 +43,7 @@ public class ConfigManager {
 		}
 		
 		mainConfigFolder = configFolder + "/" + ConfigConstants.MAIN_CONFIG_FOLDER + "/";
-		logger.info("Main configuration directory '{}'.", mainConfigFolder);
+		logger.info("Main configuration directory {}", mainConfigFolder);
 	}
 
 	public void activate() {
@@ -68,12 +68,12 @@ public class ConfigManager {
 
 				boolean valid = watckKey.reset();
 				if (!valid) {
-					logger.info("Watch service no longer registered.");
+					logger.info("Watch service no longer registered");
 					break;
 				}
 			}
 		} catch (Exception e) {
-			logger.error("Watch service failed to start.", e);
+			logger.error("Watch service failed to start", e);
 		}
 	}
 
@@ -97,13 +97,13 @@ public class ConfigManager {
 		try {
 			in = new FileInputStream(configFilePath);
 			configuration.load(in);
-			logger.info("Loading configuration file '{}'.", configFilePath);
+			logger.info("Loading configuration file {}", configFilePath);
 		} catch (FileNotFoundException e) {
 			configuration = null;
-			logger.info("Configuration file '{}' does not exist.", configFilePath);
+			logger.debug("Missing configuration for module {}", module);
 		} catch (IOException e) {
 			configuration = null;
-			logger.error("Configuration file '{}' cannot be read.", configFilePath, e);
+			logger.error("Configuration file '{}' cannot be read", configFilePath, e);
 		} finally {
 			if (in != null)
 				in.close();
