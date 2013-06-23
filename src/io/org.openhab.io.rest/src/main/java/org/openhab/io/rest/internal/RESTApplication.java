@@ -28,29 +28,18 @@
  */
 package org.openhab.io.rest.internal;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
-
-import javax.servlet.Servlet;
 import javax.ws.rs.core.Application;
 
-import org.atmosphere.cpr.AtmosphereServlet;
 import org.openhab.core.events.EventBus;
 import org.openhab.core.items.ItemRegistry;
 import org.openhab.io.rest.internal.resources.ItemResource;
 import org.openhab.io.rest.internal.resources.RootResource;
 //import org.openhab.io.rest.internal.resources.SitemapResource;
-//--->[Shenglong]
-//import org.openhab.io.servicediscovery.DiscoveryService;
-//import org.openhab.io.servicediscovery.ServiceDescription;
-//<---
 import org.openhab.core.model.ModelRepository;
-import org.openhab.core.service.ServletProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.sun.jersey.core.util.FeaturesAndProperties;
 
 /**
  * This is the main component of the REST API; it gets all required services injected,
@@ -60,16 +49,10 @@ import com.sun.jersey.core.util.FeaturesAndProperties;
  * @author Kai Kreuzer
  * @since 0.8.0
  */
-public class RESTApplication extends Application implements ServletProvider {
-
-	public static final String REST_SERVLET_ALIAS = "/rest";
-	public static final String REST_SERVLET_PATH = "/rest/*";
+public class RESTApplication extends Application {
 
 	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(RESTApplication.class);
-
-	//[Shenglong]
-	//private DiscoveryService discoveryService;
 
 	static private EventBus eventBus;
 	
@@ -98,23 +81,6 @@ public class RESTApplication extends Application implements ServletProvider {
 	static public ModelRepository getModelRepository() {
 		return modelRepository;
 	}
-
-//--->[Shenglong]
-//	public void setDiscoveryService(DiscoveryService discoveryService) {
-//		this.discoveryService = discoveryService;
-//	}
-//	
-//	public void unsetDiscoveryService(DiscoveryService discoveryService) {
-//		this.discoveryService = null;
-//	}
-//<---
-	
-//--->[Shenglong]       
-//        if (discoveryService != null) {
-// 			discoveryService.unregisterService(getDefaultServiceDescription());
-//			discoveryService.unregisterService(getSSLServiceDescription()); 			
-// 		}
-//<---
 	
     @Override
     public Set<Class<?>> getClasses() {
@@ -124,52 +90,4 @@ public class RESTApplication extends Application implements ServletProvider {
         //result.add(SitemapResource.class);
         return result;
     }
-
-	@Override
-	public Map<String, String> getInitParams() {
-        Map<String, String> jerseyServletParams = new HashMap<String, String>();
-        jerseyServletParams.put("javax.ws.rs.Application", RESTApplication.class.getName());
-        jerseyServletParams.put("org.atmosphere.core.servlet-mapping", REST_SERVLET_PATH);
-        jerseyServletParams.put("org.atmosphere.useWebSocket", "true");
-        jerseyServletParams.put("org.atmosphere.useNative", "true");
-        jerseyServletParams.put("org.atmosphere.cpr.padding", "whitespace");     
-        
-        jerseyServletParams.put("org.atmosphere.cpr.broadcastFilterClasses", "org.atmosphere.client.FormParamFilter");
-        jerseyServletParams.put("org.atmosphere.cpr.broadcasterLifeCyclePolicy", "IDLE_DESTROY");
-        jerseyServletParams.put("org.atmosphere.cpr.CometSupport.maxInactiveActivity", "300000");
-        
-        jerseyServletParams.put("com.sun.jersey.spi.container.ResourceFilter", "org.atmosphere.core.AtmosphereFilter");
-        //jerseyServletParams.put("org.atmosphere.cpr.broadcasterCacheClass", "org.atmosphere.cache.SessionBroadcasterCache");
-        
-        // required because of bug http://java.net/jira/browse/JERSEY-361
-        jerseyServletParams.put(FeaturesAndProperties.FEATURE_XMLROOTELEMENT_PROCESSING, "true");
-
-        return jerseyServletParams;
-    }
-
-	@Override
-	public Class<? extends Servlet> getServletClass() {
-		return AtmosphereServlet.class;
-	}
-
-	@Override
-	public String getPathSpec() {
-		return REST_SERVLET_PATH;
-	}
-
-//--->[Shenglong]
-//    private ServiceDescription getDefaultServiceDescription() {
-//		Hashtable<String, String> serviceProperties = new Hashtable<String, String>();
-//		serviceProperties.put("uri", REST_SERVLET_ALIAS);
-//		return new ServiceDescription("_openhab-server._tcp.local.", "openHAB", httpPort, serviceProperties);
-//    }
-//
-//    private ServiceDescription getSSLServiceDescription() {
-//    	ServiceDescription description = getDefaultServiceDescription();
-//    	description.serviceType = "_openhab-server-ssl._tcp.local.";
-//    	description.serviceName = "openHAB-ssl";
-//		description.servicePort = httpSSLPort;
-//		return description;
-//    }
-//<---
 }

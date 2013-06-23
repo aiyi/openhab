@@ -35,7 +35,6 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.openhab.core.items.Item;
-import org.openhab.io.rest.internal.RESTApplication;
 import org.openhab.io.rest.internal.resources.ItemResource;
 import org.openhab.io.rest.internal.util.ResponseTypeHelper;
 import org.slf4j.Logger;
@@ -75,7 +74,7 @@ public class ItemStateChangeListener extends ResourceStateChangeListener {
 			// we want the full item data (as xml or json(p))
 			String responseType = (new ResponseTypeHelper()).getResponseType(request);
 			if(responseType!=null) {
-				String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+(request.getContextPath().equals("null")?"":request.getContextPath())+ RESTApplication.REST_SERVLET_ALIAS +"/";
+				String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+(request.getContextPath().equals("null")?"":request.getContextPath()) +"/";
 				if (pathInfo.startsWith("/" + ItemResource.PATH_ITEMS)) {
 		        	String[] pathSegments = pathInfo.substring(1).split("/");
 		            if(pathSegments.length>=2) {

@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<web-app 
+   xmlns="http://java.sun.com/xml/ns/javaee" 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+   metadata-complete="false"
+   version="3.0"> 
+
+  <display-name>REST</display-name>
+
+  <servlet>
+    <servlet-name>rest</servlet-name>
+    <servlet-class>org.atmosphere.cpr.AtmosphereServlet</servlet-class>
+	<load-on-startup>1</load-on-startup>
+    <init-param>
+      <param-name>javax.ws.rs.Application</param-name>
+      <param-value>org.openhab.io.rest.internal.RESTApplication</param-value>
+    </init-param>
+    <init-param>
+      <param-name>org.atmosphere.core.servlet-mapping</param-name>
+      <param-value>/*</param-value>
+    </init-param>
+    <init-param>
+      <param-name>org.atmosphere.useWebSocket</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>org.atmosphere.useNative</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>org.atmosphere.cpr.padding</param-name>
+      <param-value>whitespace</param-value>
+    </init-param>
+    <init-param>
+      <param-name>org.atmosphere.cpr.broadcastFilterClasses</param-name>
+      <param-value>org.atmosphere.client.FormParamFilter</param-value>
+    </init-param>
+    <init-param>
+      <param-name>org.atmosphere.cpr.broadcasterLifeCyclePolicy</param-name>
+      <param-value>IDLE_DESTROY</param-value>
+    </init-param>
+    <init-param>
+      <param-name>org.atmosphere.cpr.CometSupport.maxInactiveActivity</param-name>
+      <param-value>300000</param-value>
+    </init-param>
+    <init-param>
+      <param-name>com.sun.jersey.spi.container.ResourceFilter</param-name>
+      <param-value>org.atmosphere.core.AtmosphereFilter</param-value>
+    </init-param>
+    <init-param>
+      <param-name>com.sun.jersey.config.feature.XmlRootElementProcessing</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>rest</servlet-name>
+    <url-pattern>/*</url-pattern>
+  </servlet-mapping>
+
+</web-app>
