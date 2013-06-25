@@ -33,10 +33,10 @@ import java.util.Set;
 import javax.ws.rs.core.Application;
 
 import org.openhab.core.events.EventBus;
-import org.openhab.core.items.ItemRegistry;
 import org.openhab.io.rest.internal.resources.ItemResource;
 import org.openhab.io.rest.internal.resources.RootResource;
-//import org.openhab.io.rest.internal.resources.SitemapResource;
+import org.openhab.io.rest.internal.resources.SitemapResource;
+import org.openhab.core.model.ItemUIRegistry;
 import org.openhab.core.model.ModelRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,32 +54,32 @@ public class RESTApplication extends Application {
 	@SuppressWarnings("unused")
 	private static final Logger logger = LoggerFactory.getLogger(RESTApplication.class);
 
-	static private EventBus eventBus;
-	
-	static private ItemRegistry itemRegistry;
+	private static EventBus eventBus;
 
-	static private ModelRepository modelRepository;
+	private static ModelRepository modelRepository;
+
+	private static ItemUIRegistry itemUIRegistry;
 
 	public RESTApplication() {
 		
 	}
 	
-	public RESTApplication(EventBus eventBus, ItemRegistry itemRegistry, ModelRepository modelRepository) {
+	public RESTApplication(EventBus eventBus, ModelRepository modelRepository, ItemUIRegistry itemUIRegistry) {
 		RESTApplication.eventBus = eventBus;
-		RESTApplication.itemRegistry = itemRegistry;
 		RESTApplication.modelRepository = modelRepository;
+		RESTApplication.itemUIRegistry = itemUIRegistry;
 	}
 
-	static public EventBus getEventBus() {
+	public static EventBus getEventBus() {
 		return eventBus;
 	}
-
-	static public ItemRegistry getItemRegistry() {
-		return itemRegistry;
-	}
 	
-	static public ModelRepository getModelRepository() {
+	public static ModelRepository getModelRepository() {
 		return modelRepository;
+	}
+
+	public static ItemUIRegistry getItemUIRegistry() {
+		return itemUIRegistry;
 	}
 	
     @Override
@@ -87,7 +87,8 @@ public class RESTApplication extends Application {
         Set<Class<?>> result = new HashSet<Class<?>>();
         result.add(RootResource.class);
         result.add(ItemResource.class);
-        //result.add(SitemapResource.class);
+        result.add(SitemapResource.class);
         return result;
     }
+
 }

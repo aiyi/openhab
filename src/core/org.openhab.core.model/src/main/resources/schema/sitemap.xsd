@@ -7,9 +7,21 @@
 		<xsd:complexType>
 			<xsd:complexContent>
 				<xsd:extension base="core:Model">
-					<xsd:sequence>
-						<xsd:element name="frame" type="Frame" minOccurs="1" maxOccurs="unbounded"/>
-					</xsd:sequence>
+					<xsd:choice minOccurs="1" maxOccurs="unbounded">
+						<xsd:element name="text" type="Text"/>
+						<xsd:element name="group" type="Group"/>
+						<xsd:element name="image" type="Image"/>
+						<xsd:element name="frame" type="Frame"/>
+						<xsd:element name="switch" type="Switch"/>
+						<xsd:element name="selection" type="Selection"/>
+						<xsd:element name="slider" type="Slider"/>
+						<xsd:element name="list" type="List"/>
+						<xsd:element name="setpoint" type="Setpoint"/>
+						<xsd:element name="video" type="Video"/>
+						<xsd:element name="chart" type="Chart"/>
+						<xsd:element name="webview" type="Webview"/>
+						<xsd:element name="colorpicker" type="Colorpicker"/>
+					</xsd:choice>
 					<xsd:attribute name="name" type="xsd:string" use="required"/>
 					<xsd:attribute name="label" type="xsd:string" use="required"/>
 					<xsd:attribute name="icon" type="xsd:string" use="optional"/>

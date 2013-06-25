@@ -15,7 +15,7 @@ abstract public class Module {
 
 	private String name = null;
 	
-	private MutablePicoContainer container;
+	private static MutablePicoContainer container;
 
 	private Properties initConfig = null;
 
@@ -39,7 +39,7 @@ abstract public class Module {
 	}
 	
 	public void setContainer(MutablePicoContainer container) {
-		this.container = container;
+		Module.container = container;
 	}
 
 	public void configure(Properties config) {
@@ -68,7 +68,7 @@ abstract public class Module {
 		return container.getComponent(type);
 	}
 	
-	protected Object getComponent(Object key) {
+	protected static Object getComponent(Object key) {
 		return container.getComponent(key);
 	}
 	

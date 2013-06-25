@@ -55,7 +55,9 @@ import org.openhab.core.model.Model;
 import org.openhab.core.model.ModelRepository;
 import org.openhab.core.model.ModelRepositoryChangeListener;
 import org.openhab.core.model.items.ItemModel;
+import org.openhab.core.model.sitemap.LinkableWidget;
 import org.openhab.core.model.sitemap.Sitemap;
+import org.openhab.core.model.sitemap.Widget;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
@@ -100,6 +102,14 @@ public class ModelRepositoryImpl implements ModelRepository {
 			JAXBContext context = JAXBContext.newInstance(modelClass);
 			Unmarshaller unmarshaller = context.createUnmarshaller();
 			Model model = (Model)unmarshaller.unmarshal(source);
+			
+			if (model instanceof Sitemap) {
+				for (Widget widget : ((Sitemap)model).getChildren()) {
+					widget.setParent(model);
+					associateParentWidget(widget);
+				}
+			}
+			
             modelMap.put(name, model);
 			logger.debug("Configuration model '{}' created.", name);
 			return model;
@@ -109,6 +119,15 @@ public class ModelRepositoryImpl implements ModelRepository {
 		}
 		
 		return null;
+	}
+
+	public void associateParentWidget(Widget widget) {
+		if (widget instanceof LinkableWidget) {
+			for (Widget child : ((LinkableWidget)widget).getChildren()) {
+				child.setParent(widget);
+				associateParentWidget(child);
+			}
+		}
 	}
 	
 	public Model getModel(String name) {

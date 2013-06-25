@@ -3,6 +3,8 @@ package org.openhab.core.model;
 import java.util.Properties;
 
 import org.openhab.core.model.internal.GenericItemProvider;
+import org.openhab.core.model.internal.GenericItemUIProvider;
+import org.openhab.core.model.internal.ItemUIRegistryImpl;
 import org.openhab.core.model.internal.ModelRepositoryImpl;
 import org.openhab.core.model.internal.SitemapProviderImpl;
 import org.openhab.core.model.internal.folder.FolderObserver;
@@ -26,6 +28,8 @@ public class ModelModule extends Module {
 		addComponent(GenericItemProvider.class);
 		addComponent(SitemapProviderImpl.class);
 		addComponent(ModelRepositoryImpl.class);
+		addComponent(GenericItemUIProvider.class);
+		addComponent(ItemUIRegistryImpl.class);
 	}
 
 	@Override

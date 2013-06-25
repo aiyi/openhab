@@ -60,7 +60,7 @@ import org.atmosphere.jersey.SuspendResponse;
 import org.openhab.core.items.GroupItem;
 import org.openhab.core.items.Item;
 import org.openhab.core.items.ItemNotFoundException;
-import org.openhab.core.items.ItemRegistry;
+import org.openhab.core.model.ItemUIRegistry;
 import org.openhab.core.types.Command;
 import org.openhab.core.types.State;
 import org.openhab.core.types.TypeParser;
@@ -235,7 +235,7 @@ public class ItemResource {
     }
     
     static public Item getItem(String itemname) {
-        ItemRegistry registry = RESTApplication.getItemRegistry();
+    	ItemUIRegistry registry = RESTApplication.getItemUIRegistry();
         if(registry!=null) {
         	try {
 				Item item = registry.getItem(itemname);
@@ -249,7 +249,7 @@ public class ItemResource {
 
 	private List<ItemBean> getItemBeans() {
 		List<ItemBean> beans = new LinkedList<ItemBean>();
-		ItemRegistry registry = RESTApplication.getItemRegistry();
+		ItemUIRegistry registry = RESTApplication.getItemUIRegistry();
 		for(Item item : registry.getItems()) {
 			beans.add(createItemBean(item, false, uriInfo.getBaseUri().toASCIIString()));
 		}

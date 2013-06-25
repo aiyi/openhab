@@ -80,7 +80,7 @@ public class RootResource {
 		RootBean bean = new RootBean();
 	    
 	    bean.links.put("items", uriInfo.getBaseUriBuilder().path(ItemResource.PATH_ITEMS).build().toASCIIString());
-	    //bean.links.put("sitemaps", uriInfo.getBaseUriBuilder().path(SitemapResource.PATH_SITEMAPS).build().toASCIIString());
+	    bean.links.put("sitemaps", uriInfo.getBaseUriBuilder().path(SitemapResource.PATH_SITEMAPS).build().toASCIIString());
 	    
 	    return bean;
 	}
