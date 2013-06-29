@@ -1,27 +1,335 @@
 <ItemModel>
-    <group type="Switch" name="All">
-        <label>Table</label>
-        <icon>temperature</icon>
-        <function type="OR">
-            <arg>ON</arg>
-            <arg>OFF</arg>
-        </function>
-    </group>
+	<group name="All"/>
 	<group name="gGF">
-		<icon>temperature</icon>
 		<group>All</group>
-		<group>Status</group>
+	</group>
+	<group name="gFF">
+		<group>All</group>
+	</group>
+	<group name="gC">
+		<group>All</group>
+	</group>
+	<group name="Outdoor">
+		<group>All</group>
+	</group>
+	<group name="Shutters">
+		<group>All</group>
+	</group>
+	<group name="Weather">
+		<group>All</group>
 	</group>
 	<group name="Status">
-		<icon>temperature</icon>
 		<group>All</group>
+	</group>
+
+	<group name="GF_Living" label="Living Room" icon="video">
 		<group>gGF</group>
 	</group>
-	<item type="DateTime" name="Date">
-		<label>Date [%1$tA, %1$td.%1$tm.%1$tY]</label>
-		<icon>calendar</icon>
-		<binding type="ntp">
-			<config>Europe/Berlin:de_DE</config>
-		</binding>
+	<group name="GF_Kitchen" label="Kitchen" icon="kitchen">
+		<group>gGF</group>
+	</group>
+	<group name="GF_Toilet" label="Toilet" icon="bath">
+		<group>gGF</group>
+	</group>
+	<group name="GF_Corridor" label="Corridor" icon="corridor">
+		<group>gGF</group>
+	</group>
+
+	<group name="FF_Bath" label="Bathroom" icon="bath">
+		<group>gFF</group>
+	</group>
+	<group name="FF_Office" label="Office" icon="office">
+		<group>gFF</group>
+	</group>
+	<group name="FF_Child" label="Child's Room" icon="boy1">
+		<group>gFF</group>
+	</group>
+	<group name="FF_Bed" label="Bedroom" icon="bedroom">
+		<group>gFF</group>
+	</group>
+	<group name="FF_Corridor" label="Corridor" icon="corridor">
+		<group>gFF</group>
+	</group>
+
+	<group type="Switch" name="Lights" label="All Lights [(%d)]">
+		<group>All</group>
+		<function>
+			<type>OR</type>
+			<arg>ON</arg>
+			<arg>OFF</arg>
+		</function>
+	</group>
+	<group type="Switch" name="Heating" label="No. of Active Heatings [(%d)]" icon="heating">
+		<group>All</group>
+		<function>
+			<type>OR</type>
+			<arg>ON</arg>
+			<arg>OFF</arg>
+		</function>
+	</group>
+	<group type="Number" name="Temperature" label="Avg. Room Temperature [%.1f °C]" icon="temperature">
+		<group>Status</group>
+		<function>
+			<type>AVG</type>
+		</function>
+	</group>
+	<group type="Contact" name="Windows" label="Open windows [(%d)]" icon="contact">
+		<group>All</group>
+		<function>
+			<type>OR</type>
+			<arg>OPEN</arg>
+			<arg>CLOSED</arg>
+		</function>
+	</group>
+
+	<item type="Dimmer" name="Light_GF_Living_Table" label="Table">
+		<group>GF_Living</group>
+		<group>Lights</group>
 	</item>
+	<item type="Switch" name="Light_GF_Corridor_Ceiling" label="Ceiling">
+		<group>GF_Corridor</group>
+		<group>Lights</group>
+	</item>
+	<item type="Switch" name="Light_GF_Kitchen_Ceiling" label="Ceiling">
+		<group>GF_Kitchen</group>
+		<group>Lights</group>
+	</item>
+	<item type="Switch" name="Light_GF_Kitchen_Table" label="Table">
+		<group>GF_Kitchen</group>
+		<group>Lights</group>
+	</item>
+	<item type="Switch" name="Light_GF_Corridor_Wardrobe" label="Wardrobe">
+		<group>GF_Corridor</group>
+		<group>Lights</group>
+	</item>
+	<item type="Switch" name="Light_GF_Toilet_Ceiling" label="Ceiling">
+		<group>GF_Toilet</group>
+		<group>Lights</group>
+	</item>
+	<item type="Switch" name="Light_GF_Toilet_Mirror" label="Mirror">
+		<group>GF_Toilet</group>
+		<group>Lights</group>
+	</item>
+
+	<item type="Switch" name="Light_FF_Bath_Ceiling" label="Ceiling0">
+		<group>FF_Bath</group>
+		<group>Lights</group>
+	</item>
+	<item type="Switch" name="Light_FF_Bath_Mirror" label="Mirror">
+		<group>FF_Bath</group>
+		<group>Lights</group>
+	</item>
+	<item type="Switch" name="Light_FF_Corridor_Ceiling" label="Corridor">
+		<group>FF_Corridor</group>
+		<group>Lights</group>
+	</item>
+	<item type="Switch" name="Light_FF_Office_Ceiling" label="Ceiling">
+		<group>FF_Office</group>
+		<group>Lights</group>
+	</item>
+	<item type="Switch" name="Light_FF_Child_Ceiling" label="Ceiling">
+		<group>FF_Child</group>
+		<group>Lights</group>
+	</item>
+	<item type="Switch" name="Light_FF_Bed_Ceiling" label="Ceiling">
+		<group>FF_Bed</group>
+		<group>Lights</group>
+	</item>
+
+	<item type="Switch" name="Light_C_Corridor_Ceiling" label="Ceiling">
+		<group>gC</group>
+		<group>Lights</group>
+	</item>
+	<item type="Switch" name="Light_C_Staircase" label="Staircase">
+		<group>gC</group>
+		<group>Lights</group>
+	</item>
+	<item type="Switch" name="Light_C_Washing_Ceiling" label="Washing">
+		<group>gC</group>
+		<group>Lights</group>
+	</item>
+	<item type="Switch" name="Light_C_Workshop" label="Workshop">
+		<group>gC</group>
+		<group>Lights</group>
+	</item>
+
+	<item type="Switch" name="Light_Outdoor_Garage" label="Garage">
+		<group>Outdoor</group>
+		<group>Lights</group>
+	</item>
+	<item type="Switch" name="Light_Outdoor_Terrace" label="Terrace">
+		<group>Outdoor</group>
+		<group>Lights</group>
+	</item>
+	<item type="Switch" name="Light_Outdoor_Frontdoor" label="Frontdoor">
+		<group>Outdoor</group>
+		<group>Lights</group>
+	</item>
+
+	<item type="Switch" name="Heating_GF_Corridor" label="GF Corridor" icon="heating">
+		<group>GF_Corridor</group>
+		<group>Heating</group>
+	</item>
+	<item type="Switch" name="Heating_GF_Toilet" label="Toilet" icon="heating">
+		<group>GF_Toilet</group>
+		<group>Heating</group>
+	</item>
+	<item type="Switch" name="Heating_GF_Living" label="Livingroom" icon="heating">
+		<group>GF_Living</group>
+		<group>Heating</group>
+	</item>
+	<item type="Switch" name="Heating_GF_Kitchen" label="Kitchen" icon="heating">
+		<group>GF_Kitchen</group>
+		<group>Heating</group>
+	</item>
+
+	<item type="Switch" name="Heating_FF_Bath" label="Bath" icon="heating">
+		<group>FF_Bath</group>
+		<group>Heating</group>
+	</item>
+	<item type="Switch" name="Heating_FF_Office" label="Office" icon="heating">
+		<group>FF_Office</group>
+		<group>Heating</group>
+	</item>
+	<item type="Switch" name="Heating_FF_Child" label="Child's Room" icon="heating">
+		<group>FF_Child</group>
+		<group>Heating</group>
+	</item>
+	<item type="Switch" name="Heating_FF_Bed" label="Bedroom" icon="heating">
+		<group>FF_Bed</group>
+		<group>Heating</group>
+	</item>
+
+	<item type="Switch" name="Shutter_all">
+		<group>Shutters</group>
+	</item>
+
+	<item type="Rollershutter" name="Shutter_GF_Toilet" label="Toilet">
+		<group>GF_Toilet</group>
+		<group>Shutters</group>
+	</item>
+	<item type="Rollershutter" name="Shutter_GF_Kitchen" label="Kitchen">
+		<group>GF_Kitchen</group>
+		<group>Shutters</group>
+	</item>
+	<item type="Rollershutter" name="Shutter_GF_Living" label="Livingroom">
+		<group>GF_Living</group>
+		<group>Shutters</group>
+	</item>
+
+	<item type="Rollershutter" name="Shutter_FF_Bed" label="Bedroom">
+		<group>FF_Bed</group>
+		<group>Shutters</group>
+	</item>
+	<item type="Rollershutter" name="Shutter_FF_Bath" label="Bath">
+		<group>FF_Bath</group>
+		<group>Shutters</group>
+	</item>
+	<item type="Rollershutter" name="Shutter_FF_Office_Window" label="Office Window">
+		<group>FF_Office</group>
+		<group>Shutters</group>
+	</item>
+	<item type="Rollershutter" name="Shutter_FF_Office_Door" label="Office Door">
+		<group>FF_Office</group>
+		<group>Shutters</group>
+	</item>
+
+	<item type="Number" name="Temperature_GF_Corridor" label="Temperature [%.1f °C]" icon="temperature">
+		<group>Temperature</group>
+		<group>GF_Corridor</group>
+	</item>
+	<item type="Number" name="Temperature_GF_Toilet" label="Temperature [%.1f °C]" icon="temperature">
+		<group>Temperature</group>
+		<group>GF_Toilet</group>
+	</item>
+	<item type="Number" name="Temperature_GF_Living" label="Temperature [%.1f °C]" icon="temperature">
+		<group>Temperature</group>
+		<group>GF_Living</group>
+	</item>
+	<item type="Number" name="Temperature_GF_Kitchen" label="Temperature [%.1f °C]" icon="temperature">
+		<group>Temperature</group>
+		<group>GF_Kitchen</group>
+	</item>
+	<item type="Number" name="Temperature_FF_Bath" label="Temperature [%.1f °C]" icon="temperature">
+		<group>Temperature</group>
+		<group>FF_Bath</group>
+	</item>
+	<item type="Number" name="Temperature_FF_Office" label="Temperature [%.1f °C]" icon="temperature">
+		<group>Temperature</group>
+		<group>FF_Office</group>
+	</item>
+	<item type="Number" name="Temperature_FF_Child" label="Temperature [%.1f °C]" icon="temperature">
+		<group>Temperature</group>
+		<group>FF_Child</group>
+	</item>
+	<item type="Number" name="Temperature_FF_Bed" label="Temperature [%.1f °C]" icon="temperature">
+		<group>Temperature</group>
+		<group>FF_Bed</group>
+	</item>
+
+	<item type="Contact" name="Window_GF_Frontdoor" label="Frontdoor [MAP(en.map):%s]">
+		<group>GF_Corridor</group>
+		<group>Windows</group>
+	</item>
+	<item type="Contact" name="Window_GF_Kitchen" label="Kitchen [MAP(en.map):%s]">
+		<group>GF_Kitchen</group>
+		<group>Windows</group>
+	</item>
+	<item type="Contact" name="Window_GF_Living" label="Terrace door [MAP(en.map):%s]">
+		<group>GF_Living</group>
+		<group>Windows</group>
+	</item>
+	<item type="Contact" name="Window_GF_Toilet" label="Toilet [MAP(en.map):%s]">
+		<group>GF_Toilet</group>
+		<group>Windows</group>
+	</item>
+
+	<item type="Contact" name="Window_FF_Bath" label="Bath [MAP(en.map):%s]">
+		<group>FF_Bath</group>
+		<group>Windows</group>
+	</item>
+	<item type="Contact" name="Window_FF_Bed" label="Bedroom [MAP(en.map):%s]">
+		<group>FF_Bed</group>
+		<group>Windows</group>
+	</item>
+	<item type="Contact" name="Window_FF_Office_Window" label="Office Window [MAP(en.map):%s]">
+		<group>FF_Office</group>
+		<group>Windows</group>
+	</item>
+	<item type="Contact" name="Window_FF_Office_Door" label="Balcony Door [MAP(en.map):%s]">
+		<group>FF_Office</group>
+		<group>Windows</group>
+	</item>
+	<item type="Contact" name="Garage_Door" label="Garage Door [MAP(en.map):%s]">
+		<group>Outdoor</group>
+		<group>Windows</group>
+	</item>
+
+	<group name="Weather_Chart">
+		<group>Weather</group>
+	</group>
+
+	<item type="Number" name="Weather_Temperature" label="Outside Temperature [%.1f °C]" icon="temperature">
+		<group>Temperature</group>
+		<group>Weather_Chart</group>
+	</item>
+	<item type="Number" name="Weather_Temp_Max" label="Todays Maximum [%.1f °C]" icon="temperature">
+		<group>Weather_Chart</group>
+	</item>
+	<item type="Number" name="Weather_Temp_Min" label="Todays Minimum [%.1f °C]" icon="temperature">
+		<group>Weather_Chart</group>
+	</item>
+
+	<item type="DateTime" name="Date" label="Date [%1$tA, %1$td.%1$tm.%1$tY]" icon="calendar"/>
+
+	<item type="Switch" name="DemoSwitch" label="Switch"/>
+	<item type="Dimmer" name="DimmedLight" label="Dimmer [%d %%]" icon="slider"/>
+	<item type="Color" name="RGBLight" label="RGB Light" icon="slider"/>
+	<item type="Rollershutter" name="DemoShutter" label="Roller Shutter"/>
+	<item type="Dimmer" name="DemoBlinds" label="Blinds [%d %%]" icon="rollershutter"/>
+	<item type="Number" name="Scene_General" label="Scene" icon="sofa"/>
+	<item type="Number" name="Radio_Station" label="Radio" icon="network"/>
+	<item type="Dimmer" name="Volume" label="Volume [%.1f %%]"/>
+	<item type="Number" name="Temperature_Setpoint" label="Temperature [%.1f °C]" icon="temperature"/>
+
 </ItemModel>

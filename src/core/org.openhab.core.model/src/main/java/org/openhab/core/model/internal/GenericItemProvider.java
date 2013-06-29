@@ -106,39 +106,27 @@ public class GenericItemProvider implements ItemProvider, ModelRepositoryChangeL
 					reader.removeConfigurations(modelName);
 				}
 
-				for (ModelItem modelItem : model.getGroups()) {
+				for (ModelItem modelItem : model.getItems()) {
 					Item item = null;
-					String baseItemType = null;
-					ModelGroupItem modelGroupItem = (ModelGroupItem) modelItem;
-					
-					if (modelGroupItem.getType() != null)
-						baseItemType = modelGroupItem.getType().value();
-					
-					GenericItem baseItem = getItemOfType(baseItemType, modelGroupItem.getName());
-					if (baseItem != null) {
-						ModelGroupItem.Function function = modelGroupItem.getFunction();
-						if (function == null) {
-							item = new GroupItem(modelGroupItem.getName(), baseItem);
+					if (modelItem instanceof ModelGroupItem) {
+						ModelGroupItem modelGroupItem = (ModelGroupItem) modelItem;
+						String baseItemType = modelGroupItem.getType() != null ? modelGroupItem.getType().value() : null;
+						GenericItem baseItem = getItemOfType(baseItemType, modelGroupItem.getName());
+						if (baseItem != null) {
+							ModelGroupItem.Function function = modelGroupItem.getFunction();
+							if (function == null) {
+								item = new GroupItem(modelGroupItem.getName(), baseItem);
+							} else {
+								item = applyGroupFunction(baseItem, modelGroupItem, function.getType());
+							}
 						} else {
-							item = applyGroupFunction(baseItem, modelGroupItem, function.getType());
+							item = new GroupItem(modelGroupItem.getName());
 						}
 					} else {
-						item = new GroupItem(modelGroupItem.getName());
+						ModelNormalItem normalItem = (ModelNormalItem) modelItem;
+						String itemName = normalItem.getName();
+						item = getItemOfType(normalItem.getType().value(), itemName);
 					}
-
-					if (item != null) {
-						for (String groupName : modelItem.getGroups()) {
-							item.getGroupNames().add(groupName);
-						}
-						items.add(item);
-						dispatchBindings(modelName, item, modelItem.getBindings());
-					}
-				}
-
-				for (ModelItem modelItem : model.getItems()) {
-					ModelNormalItem normalItem = (ModelNormalItem) modelItem;
-					String itemName = normalItem.getName();
-					Item item = getItemOfType(normalItem.getType().value(), itemName);
 
 					if (item != null) {
 						for (String groupName : modelItem.getGroups()) {

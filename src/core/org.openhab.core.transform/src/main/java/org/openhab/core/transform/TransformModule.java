@@ -19,10 +19,10 @@ public class TransformModule extends Module {
 	@Override
 	public void configure(Properties config) {
 		super.configure(config);
-		addComponent(MapTransformationService.class);
-		addComponent(RegExTransformationService.class);
-		addComponent(XPathTransformationService.class);
-		addComponent(XsltTransformationService.class);
+		addComponent("TransformationService.MAP", MapTransformationService.class);
+		addComponent("TransformationService.REGEX", RegExTransformationService.class);
+		addComponent("TransformationService.XPATH", XPathTransformationService.class);
+		addComponent("TransformationService.XSLT", XsltTransformationService.class);
 	}
 
 	@Override
@@ -31,8 +31,7 @@ public class TransformModule extends Module {
 	}
 
 	public static TransformationService getServiceReference(String type) {
-		String key = "org.openhab.core.transform.internal.service." + type + "TransformationService";
-		return (TransformationService)getComponent(key);
+		return (TransformationService)getComponent("TransformationService." + type);
 	}
 	
 }

@@ -31,6 +31,8 @@ package org.openhab.core.internal.events;
 import net.engio.mbassy.bus.BusConfiguration;
 import net.engio.mbassy.bus.MBassador;
 import net.engio.mbassy.listener.Handler;
+import net.engio.mbassy.listener.Listener;
+import net.engio.mbassy.listener.References;
 
 import org.openhab.core.events.EventBus;
 import org.openhab.core.events.Event;
@@ -124,7 +126,7 @@ public class EventBusImpl implements EventBus {
 		return new Event(EventType.COMMAND, itemName, command);
 	}
 
-	
+	@Listener(references = References.Strong)
 	public class EventHandler {
 
 		EventSubscriber subscriber;

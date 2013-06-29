@@ -330,9 +330,7 @@ public class SitemapResource {
     	if(widget instanceof Image) {
     		Image imageWidget = (Image) widget;
     		bean.url = imageWidget.getUrl();
-    		if(imageWidget.getRefresh()>0) {
-    			bean.refresh = imageWidget.getRefresh(); 
-    		}
+    		bean.refresh = imageWidget.getRefresh(); 
     	}
     	if(widget instanceof Video) {
     		Video videoWidget = (Video) widget;
@@ -347,9 +345,7 @@ public class SitemapResource {
     		Chart chartWidget = (Chart) widget;
     		bean.service = chartWidget.getService();
     		bean.period = chartWidget.getPeriod();
-    		if(chartWidget.getRefresh()>0) {
-    			bean.refresh = chartWidget.getRefresh(); 
-    		}
+    		bean.refresh = chartWidget.getRefresh(); 
     	}
     	if(widget instanceof Setpoint) {
     		Setpoint setpointWidget = (Setpoint) widget;

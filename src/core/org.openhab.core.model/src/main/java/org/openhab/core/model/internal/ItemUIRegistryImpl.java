@@ -87,7 +87,7 @@ public class ItemUIRegistryImpl implements ItemUIRegistry {
 	protected static final String IMAGE_EXT = ".png";
 
 	/* the image location inside the installation folder */
-	protected static final String IMAGE_LOCATION = "./webapps/images/";
+	protected static final String IMAGE_LOCATION = "./web/images/";
 
 	/* RegEx to extract and parse a function String <code>'\[(.*?)\((.*)\):(.*)\]'</code> */
 	protected static final Pattern EXTRACT_TRANSFORMFUNCTION_PATTERN = Pattern.compile("\\[(.*?)\\((.*)\\):(.*)\\]");

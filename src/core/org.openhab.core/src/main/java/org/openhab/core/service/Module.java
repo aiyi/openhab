@@ -61,9 +61,13 @@ abstract public class Module {
 	
 	protected void addComponent(Object component, Parameter... params) {
 		String key = component.toString().substring(6);
-		container.addComponent(key, component, params);
+		addComponent(key, component, params);
 	}
 
+	protected void addComponent(String key, Object component, Parameter... params) {
+		container.addComponent(key, component, params);
+	}
+	
 	protected <T> T getComponent(Class<T> type) {
 		return container.getComponent(type);
 	}

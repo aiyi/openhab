@@ -323,7 +323,6 @@ public class ItemRegistryImpl implements ItemRegistry, ItemsChangeListener {
 					// the group might not yet be registered, let's ignore this
 				}
 			}
-			logger.debug("Item '{}' has been added.", item.getName());
 			return true;
 		} else {
 			logger.warn("Ignoring item '{}' as it does not comply with" + " the naming convention.", item.getName());
