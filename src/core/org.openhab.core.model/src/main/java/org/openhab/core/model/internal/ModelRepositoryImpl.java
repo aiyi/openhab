@@ -55,6 +55,7 @@ import org.openhab.core.model.Model;
 import org.openhab.core.model.ModelRepository;
 import org.openhab.core.model.ModelRepositoryChangeListener;
 import org.openhab.core.model.items.ItemModel;
+import org.openhab.core.model.persist.PersistenceModel;
 import org.openhab.core.model.sitemap.LinkableWidget;
 import org.openhab.core.model.sitemap.Sitemap;
 import org.openhab.core.model.sitemap.Widget;
@@ -85,6 +86,11 @@ public class ModelRepositoryImpl implements ModelRepository {
 			modelType = "sitemap";
 			modelDir = "sitemaps";
 			modelClass = Sitemap.class;
+		}
+		else if (name.endsWith("persist")) {
+			modelType = "persist";
+			modelDir = "persist";
+			modelClass = PersistenceModel.class;
 		}
 		
 		if (modelType == null)

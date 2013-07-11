@@ -96,6 +96,7 @@ public class FolderObserver extends Thread {
 
 		folderFileExtMap.put("items", "items");
 		folderFileExtMap.put("sitemaps", "sitemap");
+		folderFileExtMap.put("persist", "persist");
 	}
 
 	@Override

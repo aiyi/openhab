@@ -1,0 +1,21 @@
+<PersistenceModel>
+
+	<strategies>
+		<cronStrategy name="everyHour">
+			<expression>0 0 * * * ?</expression>
+		</cronStrategy>
+		<cronStrategy name="everyDay">
+			<expression>0 0 0 * * ?</expression>
+		</cronStrategy>
+	</strategies>
+	
+	<configs>
+		<config>
+			<group>Temperature</group>
+			<group>Weather</group>
+			<strategy>everyChange</strategy>
+			<strategy>everyHour</strategy>
+		</config>
+	</configs>
+
+</PersistenceModel>
