@@ -41,6 +41,7 @@ import org.openhab.core.service.Module;
 import org.picocontainer.DefaultPicoContainer;
 import org.picocontainer.MutablePicoContainer;
 import org.picocontainer.behaviors.Caching;
+import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.bridge.SLF4JBridgeHandler;
@@ -64,6 +65,8 @@ public class CoreActivator {
 	public static void main(String[] args) {
 		try {
 			if (loadModules()) {
+				StdSchedulerFactory.getDefaultScheduler().start();
+				logger.debug("Scheduler has been started");
 				start();
 				configManager.activate();
 			}

@@ -11,10 +11,10 @@
 	
 	<configs>
 		<config>
-			<group>Temperature</group>
-			<group>Weather</group>
+			<group>All</group>
 			<strategy>everyChange</strategy>
 			<strategy>everyHour</strategy>
+			<strategy>restoreOnStartup</strategy>
 		</config>
 	</configs>
 
